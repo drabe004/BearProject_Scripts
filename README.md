@@ -1,5 +1,6 @@
 # BearProject_Scripts
-A set of scripts that will process NCBI ortholog database sequences for selection analysis in Hyphy
+1) A set of scripts that will process NCBI ortholog database sequences for selection analysis in Hyphy
+2) An R script for running RERconverge on 19k mammalian gene trees from 120 mammal genomes 
 
 
 
@@ -42,6 +43,7 @@ A set of scripts that will process NCBI ortholog database sequences for selectio
 ## 25. 15Extract_Unrounded_pvalues.py
 ## 26. List_headers.py
 ## 27. ListHeaders.sh
+## 28. RERconverge R script to run several binary analysis on 19k gene trees from 120 mammal genomes 
 
 # 1. 1rename_fastas.py
 ## Description: Processes FASTA files by renaming headers and removing subspecies information from organism names.
