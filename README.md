@@ -13,6 +13,7 @@
 ## Initial Inputs:
 ## 1. NCBI FASTA lists of RefSeq sequences (one sequence per species) from the NCBI ortholog database (.fasta files).
 ## 2. Corresponding COBALT protein alignments (.aln) from the NCBI ortholog database.
+## 3. An input Species Topology including all species desired for final selection analyses
 
 ## Table of Contents
 
