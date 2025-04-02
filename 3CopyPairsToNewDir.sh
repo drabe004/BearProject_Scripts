@@ -4,17 +4,17 @@
 #SBATCH --mem=80g
 #SBATCH --tmp=40g
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user= youremail.com
 
-cd /panfs/jay/groups/26/mcgaughs/drabe004/BEARS
+cd /your/path
 
 
 # Input directories to copy
-input_dir1="output_renamed_refseq_HG"
-input_dir2="output_renamed_alns_HG"
+input_dir1="output_renamed_refseq"
+input_dir2="output_renamed_alns"
 
 # Output directory to store all contents
-output_directory="Renamed_output_ALL_HG"
+output_directory="Renamed_output_ALL"
 
 
 # Create the output directory if it doesn't exist
