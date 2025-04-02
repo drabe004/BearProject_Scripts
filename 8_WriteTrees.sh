@@ -4,10 +4,10 @@
 #SBATCH --mem=50g
 #SBATCH --tmp=25g
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user=youremail
 
 
-cd /panfs/jay/groups/26/mcgaughs/drabe004/BEARS
+cd path/to/your/files
 
 module load python3/3.7.1_anaconda
 
@@ -24,4 +24,4 @@ conda activate newbioenv
 # as dependencies should be managed within the environment itself.
 # export PYTHONPATH="${PYTHONPATH}:/path/to/new/environment/python/packages"
 
-python 8writeTrees.py ALL_specieS_NBL.tre Hand_Edited_Alignments
+python 8_writeTrees.py ALL_specieS_NBL.tre Hand_Edited_Alignments
