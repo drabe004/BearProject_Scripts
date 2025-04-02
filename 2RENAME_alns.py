@@ -42,12 +42,12 @@ def modify_file(input_file, output_dir, log_file):
         file.writelines(modified_lines)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: python3 script.py dir/to/input/files")
+    if len(sys.argv) != 3:
+        print("Usage: python3 script.py dir/to/input/files dir/to/output/files")
         sys.exit(1)
 
     input_dir = sys.argv[1]
-    output_dir = 'output_renamed_alns_HG'  # Replace 'output_directory' with the desired output directory path
+    output_dir = sys.argv[2]  # Replace 'output_directory' with the desired output directory path
     log_file_path = 'aln_dup_log.txt'
 
     if not os.path.exists(output_dir):
