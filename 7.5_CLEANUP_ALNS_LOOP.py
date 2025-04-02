@@ -27,6 +27,7 @@ def replace_stop_codons_with_gaps(alignment):
 
     return MultipleSeqAlignment(new_records)
 
+
 def trim_alignment_to_threshold(alignment, initial_threshold, secondary_threshold):
     sequence_length = alignment.get_alignment_length()
     codon_length = 3
@@ -36,50 +37,52 @@ def trim_alignment_to_threshold(alignment, initial_threshold, secondary_threshol
             codon_presence = sum(1 for seq in codon_column if "-" not in seq) / len(alignment)
             if codon_presence >= threshold:
                 return alignment[:, i:]
-    logging.info(f"No columns met the 75% presence requirement. Proceeding with the original alignment for {alignment[0].id}.")
+    logging.info(f"No columns met the {secondary_threshold*100:.0f}% presence requirement. Proceeding with the original alignment for {alignment[0].id}.")
     return alignment
 
 
 def remove_species_with_high_gap_percentage(alignment, threshold):
     total_length = alignment.get_alignment_length()
     new_records = []
-    
+
     for record in alignment:
         sequence = str(record.seq)
         gap_percentage = sequence.count('-') / total_length
         if gap_percentage <= threshold:
             new_records.append(record)
-    
+
     return MultipleSeqAlignment(new_records)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print("Usage: python script.py input_directory output_directory gap_threshold debug_logfile")
+    if len(sys.argv) != 6:
+        print("Usage: python script.py input_directory output_directory gap_threshold initial_threshold secondary_threshold debug_logfile")
         sys.exit(1)
-    
+
     input_directory = sys.argv[1]
     output_directory = sys.argv[2]
     gap_threshold = float(sys.argv[3])
-    debug_logfile = sys.argv[4]
-    
+    initial_threshold = float(sys.argv[4])
+    secondary_threshold = float(sys.argv[5])
+    debug_logfile = sys.argv[6]
+
     logging.basicConfig(filename=debug_logfile, level=logging.INFO)
-    
+
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
-    
+
     for filename in os.listdir(input_directory):
         if filename.endswith(".fasta"):
             input_file_path = os.path.join(input_directory, filename)
             output_file_path = os.path.join(output_directory, filename.replace(".fasta", "_Dclean.fasta"))
-            
+
             alignment = AlignIO.read(input_file_path, "fasta")
             alignment_with_gaps = replace_stop_codons_with_gaps(alignment)
-            trimmed_alignment = trim_alignment_to_threshold(alignment_with_gaps, 0.9, 0.75)
-            
+            trimmed_alignment = trim_alignment_to_threshold(alignment_with_gaps, initial_threshold, secondary_threshold)
+
             final_alignment = remove_species_with_high_gap_percentage(trimmed_alignment, gap_threshold)
-            
+
             with open(output_file_path, "w") as output_handle:
                 AlignIO.write(final_alignment, output_handle, "fasta")
-    
+
     print("Alignment processing complete.")
