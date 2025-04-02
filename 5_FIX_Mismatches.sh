@@ -4,11 +4,11 @@
 #SBATCH --mem=80g
 #SBATCH --tmp=40g
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user=youremail
 
 
 # Absolute path to the directory where files are copied
-input_directory="/panfs/jay/groups/26/mcgaughs/drabe004/BEARS/Renamed_output_ALL"
+input_directory="/path/to/Renamed_output_ALL"
 
 # Function to replace text in .fasta files
 replace_text_in_files() {
