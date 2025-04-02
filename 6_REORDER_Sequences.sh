@@ -3,12 +3,11 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=80g
 #SBATCH --tmp=40g
-#SBATCH -p astyanax
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user=youremail
 
 
-cd /panfs/jay/groups/26/mcgaughs/drabe004/BEARS 
+cd path/to/dir 
 
 # Input directory containing FASTA files
 input_dir="Renamed_output_ALL"
