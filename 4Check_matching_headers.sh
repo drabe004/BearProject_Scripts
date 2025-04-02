@@ -3,12 +3,11 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=80g
 #SBATCH --tmp=40g
-#SBATCH -p astyanax
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user=youremail
 
 # Absolute path to the directory where files are copied
-input_directory="/panfs/jay/groups/26/mcgaughs/drabe004/BEARS/OldIntermediates/Renamed_output_ALL_HG/"
+input_directory="your/path/Renamed_output_ALL/"
 
 # Log file to report pairs that do not match
 log_file="$input_directory/do_they_match.txt"
