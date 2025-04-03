@@ -1,6 +1,7 @@
 import os
 import re
 import csv
+import argparse
 
 def extract_p_value(file_path):
     with open(file_path, 'r') as file:
@@ -12,8 +13,7 @@ def extract_p_value(file_path):
             return p_value
     return None
 
-def main(input_directory):
-    output_file = "BUSTED_Summary.csv"
+def main(input_directory, output_file):
     data = []
 
     for file_name in os.listdir(input_directory):
@@ -32,5 +32,9 @@ def main(input_directory):
     print(f"Summary saved to {output_file}")
 
 if __name__ == "__main__":
-    directory_input = "/panfs/jay/groups/26/mcgaughs/drabe004/BEARS/BUSTED_FGBG_OUT"
-    main(directory_input)
+    parser = argparse.ArgumentParser(description="Extract p-values from BUSTED output files.")
+    parser.add_argument("input_directory", help="Path to the directory containing BUSTED output files")
+    parser.add_argument("-o", "--output_file", default="BUSTED_Summary.csv", help="Name of the output CSV file (default: BUSTED_Summary.csv)")
+
+    args = parser.parse_args()
+    main(args.input_directory, args.output_file)
