@@ -25,10 +25,11 @@ module load conda
 # Activate the new Conda environment
 conda activate newbioenv
 
+################################ This script will write a tree for each alignment using a master tree that includes all possible species. The script prunes the master tree and then writes the new tree that matches each alignment
+################################### *****If using these for HyPhy or further analysis--- it may be necessary to quantify how many species are left in each alignment AFTER your clean up step****** (e.g. you might have an alignment with 3 species)
 
 ###INPUT
 #ALL_specieS_NBL.tre  a master species topology with no branch lengths 
 #Pal2nal_alns a directory of codon alignments from PAL2nal. 
-## suggest running clean up script after pal2nal for second pass
 
 python 8_writeTrees.py ALL_specieS_NBL.tre Pal2nal_alns
