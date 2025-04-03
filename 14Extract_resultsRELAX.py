@@ -1,9 +1,16 @@
 import os
-import re  # Import the re module
+import re
+import argparse  # <--- added argparse
 
-# Specify the input directory and output file
-input_directory = '/panfs/jay/groups/26/mcgaughs/drabe004/BEARS/RELAX_results/'
-output_file = 'Relax_results_summary.csv'
+# Parse arguments
+parser = argparse.ArgumentParser(description="Summarize RELAX results.")
+parser.add_argument("input_directory", help="Path to directory with RELAX result files")
+parser.add_argument("-o", "--output_file", default="Relax_results_summary.csv", help="Output CSV file name (default: Relax_results_summary.csv)")
+args = parser.parse_args()
+
+# Use parsed arguments instead of hardcoding
+input_directory = args.input_directory
+output_file = args.output_file
 
 # Initialize an empty list to store the data
 data = []
