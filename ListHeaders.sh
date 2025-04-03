@@ -3,12 +3,12 @@
 #SBATCH --ntasks=20
 #SBATCH --mem=400g
 #SBATCH --tmp=200g
-#SBATCH -p astyanax
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user=youremail
 
 
-cd /panfs/jay/groups/26/mcgaughs/drabe004/BEARS
+cd path/to/your/dir
+
 module load python
 
 
