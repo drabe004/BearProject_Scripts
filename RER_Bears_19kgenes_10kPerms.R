@@ -57,7 +57,7 @@ print(rerpath)
 
 
 
-##########Trying Amanda's topology
+########## Amanda's Species topology ###################
 
 
 # Define the correct file path
@@ -84,6 +84,7 @@ plot(toyTrees$masterTree)
 
 noneutherians <- c("ornAna2")
 
+###### Hibernating species designated as foregound ################################
 H_HIBS = c("ursMar1","mesAur1", 'speTri2', 'marMar1', "rhiSin1" ,"hipArm1" ,"eptFus1" ,"myoLuc2" ,"myoDav1" ,"myoBra1" ,"minNat1" ,"eriEur2" ,"echTel2" ,"eleEdw1")
 
 avgtree=plotTreeHighlightBranches1(toyTrees$masterTree, outgroup=noneutherians,
@@ -195,10 +196,9 @@ root_sp = "ornAna2"
 
 masterTree = toyTrees$masterTree
 
-#perform binary CC permulation
+####### perform binary CC permulation ################ we used 10k permulations for the published RER run##########################
 permCC = getPermsBinary(10000, HHIB_FG, sisters_HHIB, root_sp, NEW_mamRERw, toyTrees,
                         masterTree, permmode="cc")
-
 
 
 #calculate permulation p-values
