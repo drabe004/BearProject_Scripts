@@ -1,182 +1,121 @@
-# BearProject_Scripts
-1) A set of scripts that will process NCBI ortholog database sequences for selection analysis in Hyphy
-2) An R script for running RERconverge on 19k mammalian gene trees from 120 mammal genomes 
+# 🐻 BEARS Pipeline  
+**Batch Evolutionary Analysis of Robust Sequences**
+
+Scripts for FASTA and Alignment File Processing, Phylogenetic Tree Manipulation, and Selection Tests (BUSTED / RELAX) on HPC clusters.
+
+---
+
+## 📖 Overview
+
+This repository provides a modular pipeline for:
+- Preparing orthologous gene datasets
+- Cleaning FASTA and alignment files
+- Pruning species trees
+- Running selection tests (BUSTED and RELAX)
+- Extracting and summarizing results
+
+The pipeline is optimized for large phylogenomic datasets and high-performance computing environments.
+
+---
+
+## ✨ Inputs
+
+1. NCBI RefSeq FASTA files (one per species) from the NCBI ortholog database.
+2. COBALT protein alignments (.aln).
+3. A rooted species tree including all target species for selection analyses.
+
+---
+
+## 🛠️ Dependencies
+
+- Python ≥ 3.7  
+- R ≥ 4.0  
+- HyPhy (for BUSTED and RELAX)
+- PAL2NAL  
+- SLURM scheduler (for cluster usage)  
+- Standard Unix utilities (bash, awk, sed, etc.)
+
+---
+
+## Workflow Overview
+
+| Step | Description |
+|------|-------------|
+| Rename FASTA & Alignment headers | Standardize species names across datasets |
+| Check & Fix mismatches | Ensure FASTA and alignment headers match |
+| Cleanup Alignments | Remove bad sequences, stop codons, and gaps |
+| Convert Alignments | Generate codon alignments using PAL2NAL |
+| Prune Trees | Match trees to sequence alignments |
+| Assign Foreground | Create trees for selection analysis with foreground clades |
+| Selection Analyses | Run BUSTED and RELAX (HyPhy) |
+| Extract Results | Summarize results into CSV tables |
 
 
-
-## Script Collection for FASTA, Alignment File Processing, and Phylogenetic Analysis
-
-## Overview
-
-## This repository contains scripts designed for various aspects of genetic data analysis, including renaming headers, pruning trees, checking for mismatches, assigning foreground with parsimony, and extracting results from analyses like BUSTED and RELAX.
-
-## Initial Inputs:
-## 1. NCBI FASTA lists of RefSeq sequences (one sequence per species) from the NCBI ortholog database (.fasta files).
-## 2. Corresponding COBALT protein alignments (.aln) from the NCBI ortholog database.
-## 3. An input Species Topology including all species desired for final selection analyses
 
 ## Table of Contents
 
-## 1. 1rename_fastas.py
-## 2. 1RENAME_fastas_py.sh
-## 3. 2RENAME_alns.sh
-## 4. 3CopyPairsToNewDir.sh
-## 5. 4Check_matching_headers.sh
-## 6. 5.5DeleteRemainingMismatches.py
-## 7. 5.5DeleteRemainingMismatches.sh
-## 8. 5FIX_Mismatches.sh
-## 9. 6REORDER_Sequences.sh
-## 10. 7.5CLEANUP_ALNS_LOOP.py
-## 11. 7.5CLEANUP_ALNS_LOOP.sh
-## 12. 7Run_PAL2NAL_loop.sh
-## 13. 8WriteTrees.py
-## 14. 8WriteTrees.sh
-## 15. 9PARSIMONY_LOOPED.r
-## 16. 9PARSIMONY_LOOPED.sh
-## 17. 10BUSTED.sh
-## 18. 10BUSTED_BO.sh
-## 19. 11BUSTED_HF.sh
-## 20. 12BTRelax.sh
-## 21. 12BTORelax_BO.sh
-## 22. 14Extract_resultsBUSTED.py
-## 23. 14Extract_resultsBUSTED_HF.py
-## 24. 14Extract_resultsRELAX.py
-## 25. 15Extract_Unrounded_pvalues.py
-## 26. List_headers.py
-## 27. ListHeaders.sh
-## 28. RERconverge R script to run several binary analysis on 19k gene trees from 120 mammal genomes 
+### FASTA and Alignment Preparation
+1. `1_rename_fastas.py` — Rename FASTA headers
+2. `1_RENAME_fastas_py.sh` — SLURM wrapper for renaming FASTA headers
+3. `2_RENAME_alns.py` — Rename alignment files to match FASTA headers
+4. `2_RENAME_alns.sh` — SLURM wrapper for alignment renaming
+5. `3_CopyPairsToNewDir.sh` — Copy FASTA/ALN pairs into a new directory
+6. `4_Check_matching_headers.sh` — Check for header mismatches between FASTA and ALN files
+7. `5.5_DeleteRemainingMismatches.py` — Remove sequences without matching headers
+8. `5.5_DeleteRemainingMismatches.sh` — SLURM wrapper for deleting mismatches
+9. `5_FIX_Mismatches.sh` — Fix specific header mismatches (e.g., species name corrections)
+10. `6_REORDER_Sequences.sh` — Reorder sequences within FASTA files
 
-# 1. 1rename_fastas.py
-## Description: Processes FASTA files by renaming headers and removing subspecies information from organism names.
-Usage:
-  python3 1rename_fastas.py input_directory output_directory
+### Alignment Cleanup & Codon Conversion
+11. `7.5_CLEANUP_ALNS_LOOP.py` — Clean up alignments (stop codons, gaps, trimming)
+12. `7.5_CLEANUP_ALNS_LOOP.sh` — SLURM wrapper for alignment cleanup
+13. `7_Run_PAL2NAL_loop.sh` — Codon-align using PAL2NAL
 
-# 2. 1RENAME_fastas_py.sh
-## Description: SLURM script that runs `1rename_fastas.py` to rename headers in FASTA files using HPC resources.
-Usage:
-  sbatch 1RENAME_fastas_py.sh
+### Tree Processing
+14. `8_WriteTrees.py` — Prune species tree to match alignments
+15. `8_WriteTrees.sh` — SLURM wrapper for tree pruning
+16. `9_PARSIMONY_LOOPED.r` — Assign foreground species using parsimony
+17. `9_PARSIMONY_LOOPED.sh` — SLURM wrapper for parsimony-based foreground assignment
 
-# 3. 2RENAME_alns.sh
-## Description: Renames organisms in alignment (.aln) files to match species names in the corresponding FASTA files.
-Usage:
-  sbatch 2RENAME_alns.sh
+### Selection Analyses
+18. `10_BUSTED.sh` — Run BUSTED selection test
+19. `11_Relax.sh` — Run RELAX selection test
 
-# 4. 3CopyPairsToNewDir.sh
-## Description: Copies renamed FASTA and alignment files into a single output directory for easier management.
-Usage:
-  sbatch 3CopyPairsToNewDir.sh
+### Result Extraction
+20. `12_extractResultsBUSTED.py` — Extract BUSTED p-values into CSV
+21. `12_extractResultsBUSTED.sh` — SLURM wrapper for BUSTED extraction
+22. `13_Extract_resultsRELAX.py` — Extract RELAX results into CSV
+23. `13_Extract_resultsRELAX.sh` — SLURM wrapper for RELAX extraction
+24. `14_Extract_Unrounded_pvalues.py` — Extract unrounded p-values from BUSTED JSON
+25. `14_Extract_unrounded_pvalues.sh` — SLURM wrapper for unrounded p-value extraction
 
-# 5. 4Check_matching_headers.sh
-## Description: Compares headers between paired FASTA and alignment files, logging any mismatches found between them.
-Usage:
-  sbatch 4Check_matching_headers.sh
+### Utility Scripts
+26. `List_headers.py` — Extract all unique headers from FASTA files
+27. `ListHeaders.sh` — SLURM wrapper for header extraction
 
-# 6. 5.5DeleteRemainingMismatches.py
-## Description: Removes mismatched sequences between paired FASTA and alignment files by deleting sequences without matching headers.
-Usage:
-  python3 5.5DeleteRemainingMismatches.py input_directory output_directory
+### Visualization and Analysis
+28. `BearMetaboliteVisualizationCode.R` — Metabolite visualization code for bear datasets
 
-# 7. 5.5DeleteRemainingMismatches.sh
-## Description: SLURM script that runs `5.5DeleteRemainingMismatches.py` on HPC.
-Usage:
-  sbatch 5.5DeleteRemainingMismatches.sh
+###RERConverge Analysis script ##########################
+30. `RER_Bears_19kgenes_10kPerms.R` — RERconverge analysis script for 19k genes and 10k permutations, requires trees file (gene trees for 19610 genes from 120 mammalian genomes available here: https://doi.org/10.1101/2024.10.15.618548
 
-# 8. 5FIX_Mismatches.sh
-## Description: Corrects specific species name mismatches in the headers of FASTA files (e.g., renaming `Neovison_vison` to `Neogale_vison`).
-Usage:
-  sbatch 5FIX_Mismatches.sh
+### Documentation & License
+30. `README.md` — Documentation (this file)
+31. `LICENSE` — License file
 
-# 9. 6REORDER_Sequences.sh
-## Description: Reorganizes sequences in FASTA files to ensure consistent order for downstream analyses.
-Usage:
-  sbatch 6REORDER_Sequences.sh
 
-# 10. 7.5CLEANUP_ALNS_LOOP.py
-## Description: Processes alignment files by replacing stop codons with gaps, trimming alignments, and removing sequences with high gap percentages.
-Usage:
-  python3 7.5CLEANUP_ALNS_LOOP.py input_directory output_directory gap_threshold debug_logfile
 
-# 11. 7.5CLEANUP_ALNS_LOOP.sh
-## Description: SLURM script that runs `7.5CLEANUP_ALNS_LOOP.py` for batch processing.
-Usage:
-  sbatch 7.5CLEANUP_ALNS_LOOP.sh
+Citations: If you use this pipeline, please cite the original methods:
 
-# 12. 7Run_PAL2NAL_loop.sh
-## Description: Runs PAL2NAL to convert protein aln and DNA seq to ensure an in-frame codon alignment 
-Usage:
-  sbatch 7Run_PAL2NAL_loop.sh
+BUSTED: Murrell B, et al. (2015). Gene-wide identification of episodic selection. Mol Biol Evol, 32(5):1365-71. DOI: 10.1093/molbev/msv035
+RELAX: Wertheim JO, et al. (2015). RELAX: Detecting relaxed selection in a phylogenetic framework. Mol Biol Evol, 32(3):820-832. DOI: 10.1093/molbev/msu400
+PAL2NAL: Suyama M, Torrents D, Bork P. (2006). PAL2NAL: robust conversion of protein sequence alignments into corresponding codon alignments. Nucleic Acids Res, 34:W609-W612. DOI: 10.1093/nar/gkl315
+Tree Parsing: Cite this repository if you adapt these custom scripts.
 
-# 13. 8WriteTrees.py
-## Description: Generates pruned phylogenetic tree files based on species found in FASTA alignments, matching them to a master tree (timetree).
-Usage:
-  python3 8WriteTrees.py master_tree_file fasta_directory
+NOTES: 
+Designed for large-scale datasets.
+Robust to missing data and small alignment mismatches.
+Logs are created automatically in each .sh step.
+Scripts assume UNIX-style paths and directory structures.
 
-# 14. 8WriteTrees.sh
-## Description: SLURM script that runs `8WriteTrees.py` on an HPC cluster.
-Usage:
-  sbatch 8WriteTrees.sh
 
-# 15. 9PARSIMONY_LOOPED.r
-## Description: assigns foreground species and internal nodes trees using parsimony. Script will use a single list of foreground taxa to write a custom tree for each alignment. Output is suitable for hyphy.  
-Usage:
-  Rscript 9PARSIMONY_LOOPED.r
-
-# 16. 9PARSIMONY_LOOPED.sh
-## Description: SLURM script to run the parsimony analysis in `9PARSIMONY_LOOPED.r`.
-Usage:
-  sbatch 9PARSIMONY_LOOPED.sh
-
-# 17. 10BUSTED.sh
-## Description: Runs the BUSTED test for episodic selection on specified alignment and tree files.
-Usage:
-  sbatch 10BUSTED.sh
-
-# 18. 10BUSTED_BO.sh
-## Description: Runs the BUSTED test on background/foreground models.
-Usage:
-  sbatch 10BUSTED_BO.sh
-
-# 19. 11BUSTED_HF.sh
-## Description: Runs the BUSTED analysis on hand-edited alignments to detect episodic selection.
-Usage:
-  sbatch 11BUSTED_HF.sh
-
-# 20. 12BTRelax.sh
-## Description: Runs the RELAX test for relaxed selection on alignment and tree files.
-Usage:
-  sbatch 12BTRelax.sh
-
-# 21. 12BTORelax_BO.sh
-## Description: Runs the RELAX test on background/foreground models (bears only)
-Usage:
-  sbatch 12BTORelax_BO.sh
-
-# 22. 14Extract_resultsBUSTED.py
-## Description: Extracts p-values from BUSTED test results and saves them in a summary CSV file.
-Usage:
-  python3 14Extract_resultsBUSTED.py
-
-# 23. 14Extract_resultsBUSTED_HF.py
-## Description: Extracts p-values from BUSTED-HF results and saves them in a summary CSV file.
-Usage:
-  python3 14Extract_resultsBUSTED_HF.py
-
-# 24. 14Extract_resultsRELAX.py
-## Description: Extracts p-values and accompanying sentences from RELAX test results and outputs them to a CSV file.
-Usage:
-  python3 14Extract_resultsRELAX.py
-
-# 25. 15Extract_Unrounded_pvalues.py
-## Description: Extracts unrounded p-values from BUSTED JSON result files and writes them to a CSV file.
-Usage:
-  python3 15Extract_Unrounded_pvalues.py <directory_path> <output_file>
-
-# 26. List_headers.py
-## Description: Extracts and lists all unique headers from FASTA files in a given directory and saves them to a text file.
-Usage:
-  python3 List_headers.py
-
-# 27. ListHeaders.sh
-## Description: SLURM script to run `List_headers.py` and list headers from FASTA files on HPC.
-Usage:
-  sbatch ListHeaders.sh
