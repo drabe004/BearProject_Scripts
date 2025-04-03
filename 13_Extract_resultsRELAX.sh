@@ -4,15 +4,15 @@
 #SBATCH --mem=50g
 #SBATCH --tmp=25g
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=drabe004@umn.edu
+#SBATCH --mail-user=youremail
 
-
-cd /panfs/jay/groups/26/mcgaughs/drabe004/BEARS
+cd /path/to/your/dir
 
 module load python
 
 
-python3 14Extract_resultsRELAX.py 
+python3 14Extract_resultsRELAX.py  /path/to/RELAX_results -o custom_output.csv
+
 
 
 
