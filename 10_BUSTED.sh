@@ -39,9 +39,17 @@ for alignment_file in "$input_dir"/*_clean.fasta; do
     
     # Check if the tree file exists
     if [ -f "$tree_file" ]; then
-        # Run the hyphy command with the correct number of CPU cores and redirect output 
+        ############ Run a Foreground/Background test of selection ######################
         hyphy -1 busted --alignment "$alignment_file" --srv Yes --tree "$tree_file" --branches Foreground > "$output_file"
+        ##############################################################################################################
     else
         echo "Tree file for $alignment_file not found."
     fi
 done
+
+
+################################# NESTED TEST OPTIONS #######################################################################
+# RUN A HYPOTEHSIS FREE RUN (All branches are foreground)
+        hyphy -1 busted --alignment "$alignment_file" --srv Yes  --tree "$tree_file"  > "$output_file"
+
+
