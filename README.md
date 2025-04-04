@@ -90,7 +90,8 @@ The pipeline is optimized for large phylogenomic datasets and high-performance c
 25. `14_Extract_unrounded_pvalues.sh` — SLURM wrapper for unrounded p-value extraction
 
 ### Utility Scripts
-26. `List_headers.py` — Extract all unique headers from FASTA files
+####- you can use this to generate a master species tree/topology to use as input for 8_writetrees.sh/py timetree.org will generate a tree for most species. You can manually add branches or rename species/subspecies in R using add.tip to include all species in your dataset. 
+26. `List_headers.py` — Extract all unique headers from FASTA files-
 27. `ListHeaders.sh` — SLURM wrapper for header extraction
 
 ### Visualization and Analysis
