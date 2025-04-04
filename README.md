@@ -111,7 +111,7 @@ Citations: If you use this pipeline, please cite the original methods:
 BUSTED: Murrell B, et al. (2015). Gene-wide identification of episodic selection. Mol Biol Evol, 32(5):1365-71. DOI: 10.1093/molbev/msv035
 RELAX: Wertheim JO, et al. (2015). RELAX: Detecting relaxed selection in a phylogenetic framework. Mol Biol Evol, 32(3):820-832. DOI: 10.1093/molbev/msu400
 PAL2NAL: Suyama M, Torrents D, Bork P. (2006). PAL2NAL: robust conversion of protein sequence alignments into corresponding codon alignments. Nucleic Acids Res, 34:W609-W612. DOI: 10.1093/nar/gkl315
-Tree Parsing: Cite this repository if you adapt these custom scripts.
+This pipeline:  [Cite this repository if you adapt these custom scripts.] and original publication: (https://www.biorxiv.org/content/10.1101/2024.10.15.618548v1)
 
 NOTES: 
 Designed for large-scale datasets.
