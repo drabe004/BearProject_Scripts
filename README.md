@@ -106,12 +106,30 @@ The pipeline is optimized for large phylogenomic datasets and high-performance c
 
 
 
-Citations: If you use this pipeline, please cite the original methods:
+## 📚 Citations
 
-BUSTED: Murrell B, et al. (2015). Gene-wide identification of episodic selection. Mol Biol Evol, 32(5):1365-71. DOI: 10.1093/molbev/msv035
-RELAX: Wertheim JO, et al. (2015). RELAX: Detecting relaxed selection in a phylogenetic framework. Mol Biol Evol, 32(3):820-832. DOI: 10.1093/molbev/msu400
-PAL2NAL: Suyama M, Torrents D, Bork P. (2006). PAL2NAL: robust conversion of protein sequence alignments into corresponding codon alignments. Nucleic Acids Res, 34:W609-W612. DOI: 10.1093/nar/gkl315
-This pipeline:  [Cite this repository if you adapt these custom scripts.] and original publication: (https://www.biorxiv.org/content/10.1101/2024.10.15.618548v1)
+If you use this pipeline in your research, please cite the original methods and associated tools:
+
+- **BUSTED**  
+  Murrell B, et al. (2015). *Gene-wide identification of episodic selection*.  
+  *Molecular Biology and Evolution*, **32**(5): 1365–1371.  
+  https://doi.org/10.1093/molbev/msv035
+
+- **RELAX**  
+  Wertheim JO, et al. (2015). *RELAX: Detecting relaxed selection in a phylogenetic framework*.  
+  *Molecular Biology and Evolution*, **32**(3): 820–832.  
+  https://doi.org/10.1093/molbev/msu400
+
+- **PAL2NAL**  
+  Suyama M, Torrents D, Bork P. (2006). *PAL2NAL: robust conversion of protein sequence alignments into corresponding codon alignments*.  
+  *Nucleic Acids Research*, **34**: W609–W612.  
+  https://doi.org/10.1093/nar/gkl315
+
+- **This Pipeline**  
+  Please cite this repository if you adapt or build upon these custom scripts.  
+  📄 *Original Publication:*  
+  https://www.biorxiv.org/content/10.1101/2024.10.15.618548v1
+
 
 NOTES: 
 Designed for large-scale datasets.
