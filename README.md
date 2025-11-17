@@ -17,6 +17,22 @@ This repository provides a modular pipeline for:
 The pipeline is optimized for large phylogenomic datasets and high-performance computing environments.
 
 ---
+<details>
+<summary>💡 <b>Non-Biologist Explanation</b></summary>
+
+This pipeline is an **end-to-end data-processing and model-testing workflow**.  
+It takes raw genetic sequence data, cleans and aligns it (similar to normalizing messy tabular data), maps each sequence to its place in a hierarchical structure (the species tree), and runs statistical models that test whether certain genes show unusual patterns of change.  
+
+From a data-science perspective, it functions like a **reproducible ETL + model-validation pipeline**:  
+1. **Extract & Clean** – gather and standardize raw inputs  
+2. **Validate & Align** – ensure consistency and enforce schema rules  
+3. **Model & Test** – fit predictive models to detect meaningful signal  
+4. **Verify Robustness** – confirm results persist when subsets or parameters change  
+
+In short: it translates biological questions about gene evolution into a structured, testable framework—just as any well-engineered analytics pipeline translates messy data into reliable insight.  
+
+</details>
+
 
 ## ✨ Inputs
 
